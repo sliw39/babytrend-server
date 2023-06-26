@@ -1,5 +1,5 @@
 
-export type SurveyType = "Change" | "Someil" | "Bain" | "Repas" | "Visite";
+export type SurveyType = "Change" | "Someil" | "Bain" | "Repas" | "Visite" | "Medicaments";
 export interface Survey {
     _id?: string,
     date: number,
@@ -17,7 +17,7 @@ export interface Survey {
 export interface SurveyQuery {
     dateFrom?: number,
     dateTo?: number,
-    type?: "Change" | "Someil" | "Bain" | "Repas" | "Visite",
+    type?: SurveyType,
     minWeight?: number,
     minHeight?: number,
     minTemperature?: number,
@@ -30,7 +30,7 @@ export interface SurveyQuery {
 export function validateQuery(query: SurveyQuery): boolean {
     if (!query) return false;
     // validate type and requirements
-    if (query.type && !["Change", "Someil", "Bain", "Repas", "Visite"].includes(query.type)) return false;
+    if (query.type && !["Change", "Someil", "Bain", "Repas", "Visite", "Medicaments"].includes(query.type)) return false;
     if (query.dateFrom && isNaN(query.dateFrom)) return false;
     if (query.dateTo && isNaN(query.dateTo)) return false;
     if (query.minWeight && isNaN(query.minWeight)) return false;
@@ -51,7 +51,7 @@ export function validateSurvey(survey: Survey): boolean {
     if (!survey) return false;
     if (survey._id && typeof survey._id !== "string") return false;
     if (isNaN(survey.date)) return false;
-    if (!["Change", "Someil", "Bain", "Repas", "Visite"].includes(survey.type)) return false;
+    if (!["Change", "Someil", "Bain", "Repas", "Visite", "Medicaments"].includes(survey.type)) return false;
     if (survey.weight && isNaN(survey.weight)) return false;
     if (survey.height && isNaN(survey.height)) return false;
     if (survey.temperature && isNaN(survey.temperature)) return false;
